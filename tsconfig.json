@@ -3,6 +3,12 @@
     "esModuleInterop": true,
     "outDir": "lib",
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "target": "ES6",
+    "moduleResolution": "node",
+    "lib": [
+      "ES6",
+      "dom"
+    ]
   }
 }

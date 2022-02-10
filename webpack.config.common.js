@@ -21,9 +21,10 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  target: "node",
+  target: "web",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: path.resolve(__dirname, "dist")
   },
 }

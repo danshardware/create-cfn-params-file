@@ -63,26 +63,21 @@
   "private": true,
   "scripts": {
     "build": "npm run-script build:prod",
-    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.dev.js",
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js && cp src/*.html dist",
+    "build:dev": "cross-env NODE_ENV=development webpack --config webpack.config.dev.js && cp src/*.html dist",
     "clean": "rimraf dist/ lib/",
     "lint": "eslint ./src/**/*",
     "lint:staged": "lint-staged",
     "lint:fix": "eslint --fix ./src/**/*",
     "prettier": "prettier --write '*.{js,ts,jsx,tsx,json,md}'",
-    "start": "run-s build:dev start:dev",
-    "start:dev": "node dist/bundle.js",
-    "start:prod": "serve dist/",
+    "start": "npx run-s build:dev start:dev",
+    "start:dev": "npx serve dist/",
+    "start:prod": "npx serve dist/",
     "test": "jest",
     "test:watch": "jest --watch"
   },
   "version": "0.1.0",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.5.0",
-    "@types/react": "^17.0.3",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-redux": "^7.2.2",
-    "redux": "^4.0.5"
+    "yaml": "^1.10.2"
   }
 }
