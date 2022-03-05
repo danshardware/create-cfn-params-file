@@ -83,7 +83,7 @@ export class Extractor {
         if (btn !== null && outputArea !== null)
             btn.onclick = function(){
                 try {
-                    outputArea.value = ep(inputArea.value)
+                    outputArea.value = ep(inputArea.value, nonDefaults.checked)
                 } catch (error) {
                     if (error instanceof Error)
                         console.error(error.message)
@@ -95,7 +95,7 @@ export class Extractor {
         // this.e.appendChild(outputArea)
     }
 
-    extractParams(input: string): string {
+    extractParams(input: string, onlyRequired: boolean = false): string {
         // figure out if the input is JSON or YAML, and convert to a JSON object
         let inObject: any = null
         try {
@@ -121,7 +121,8 @@ export class Extractor {
         const templateIn: cfn = inObject
         let outString = "[\n"
         for (const p in templateIn.Parameters){
-            outString += `    {\n        "ParameterKey": "${p}",\n        "ParameterValue": ""\n    },\n`
+            if (onlyRequired === false || ! templateIn.Parameters[p].Default)
+                outString += `    {\n        "ParameterKey": "${p}",\n        "ParameterValue": ""\n    },\n`
         }
 
         outString = outString.slice(0, outString.length -2) + "\n]"
